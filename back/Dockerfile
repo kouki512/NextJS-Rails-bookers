@@ -9,4 +9,4 @@ RUN gem update && \
     bundle install
 ADD . /app
 
-CMD ["rails", "server", "-b", "0.0.0.0", "-p", "3000"]
+#CMD ["rails", "server", "-b", "0.0.0.0", "-p", "3000"]

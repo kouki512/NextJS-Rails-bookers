@@ -1,8 +1,7 @@
 import axios from 'axios';
 import Image from 'next/image'
 import { useEffect } from 'react';
-//import { GetStaticProps } from "next";
-
+import Link from 'next/link';
 type props = {
   posts: {
     id: number;
@@ -24,22 +23,13 @@ export async function getStaticProps() {
 }
 
 export default function Home() {
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const res = await fetch("http://localhost:3000/api/v1/books");
-  //     const  books = await res.json()
-  //     console.log(books)
-  //   };
-  //   fetchData();
-  // }, []);
-  // const res = fetch("http://localhost:3000/api/v1/books");
-  // const books = await res.json();
-  // console.log(res)
   return (
     <>
-      <main>
-        <h1>テストページ</h1>
-      </main>
+      
+        <h1>ようこそ<b>Bookersへ！</b></h1>
+        <p>Bookers では、さまざまな書籍に関するあなたの意見や<br>
+        </br>印象を共有し交換することができます</p>
+        <Link href="/books">start</Link>
     
     </>
   )
