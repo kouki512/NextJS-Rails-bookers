@@ -62,7 +62,10 @@
 
 # Docker(MySQL & Redis) ignored files
 /docker/db/*
-/docker/redis/*
+/docker/redis/data/*
 
 # Other ignored files
 *.env
+!.gitkeep
+!.gitignore
+```
