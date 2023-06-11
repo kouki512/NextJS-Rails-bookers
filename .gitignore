@@ -1,0 +1,68 @@
+# frontend (NextJS) ignored files
+
+# dependencies
+/front/node_modules
+/front/.pnp
+.pnp.js
+
+# testing
+/front/coverage
+
+# next.js
+/front/.next/
+/front/out/
+
+# production
+/front/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+/frontnpm-debug.log*
+/frontyarn-debug.log*
+/frontyarn-error.log*
+
+# local env files
+.env*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+/front/next-env.d.ts
+
+
+
+# backend (Ruby on Rails) ignored files
+
+# Ignore bundler config.
+/back/.bundle
+
+# Ignore all logfiles and tempfiles.
+/back/log/*
+/back/tmp/*
+!/back/log/.keep
+!/back/tmp/.keep
+
+# Ignore pidfiles, but keep the directory.
+/back/tmp/pids/*
+!/back/tmp/pids/
+!/back/tmp/pids/.keep
+
+# Ignore uploaded files in development.
+/back/storage/*
+!/back/storage/.keep
+.byebug_history
+
+# Ignore master key for decrypting credentials and more.
+/back/config/master.key
+
+# Docker(MySQL & Redis) ignored files
+/docker/db/*
+/docker/redis/*
+
+# Other ignored files
+*.env

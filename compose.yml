@@ -1,0 +1,37 @@
+services: 
+  front:                             # Next.js用コンテナ
+    build:
+      context: ./front
+    volumes:
+      - ./front:/usr/src/app     # ボリュームのバインド設定
+    command: sh -c "npm run dev"            # コンテナ起動時に実行されるコマンド
+    ports:
+      - 8080:3000                  # host側の8080ポートをコンテナの3000ポートに対してフォワード
+  back:                              # Rails用コンテナ
+    build:
+      context: ./back/
+    container_name: back
+    ports:
+      - 3000:3000
+    volumes:
+      - ./back:/app                  # ボリュームのバインド設定
+    environment:                     # 環境変数の設定　.envファイルから取得
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_HOST: ${MYSQL_HOST}
+    depends_on:                      # コンテナの依存設定
+      - db
+      - redis
+  db:                                # Mysql用コンテナ
+    image: mysql:8.0.33
+    environment:                     # 環境変数の設定　.envファイルから取得
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - "./docker/db:/var/lib/mysql"
+  redis:                              # redis用コンテナ
+    image: "redis:latest"
+    volumes:
+      - "./docker/redis/data:/data"
