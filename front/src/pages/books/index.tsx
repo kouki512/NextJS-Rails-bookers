@@ -2,14 +2,10 @@ import axios from 'axios';
 import Image from 'next/image'
 import Link from 'next/link';
 import { useEffect } from 'react';
+import { Book } from '../types';
 
-type props = {
-  books: {
-    map(arg0: (book: books) => import("react").JSX.Element): import("react").ReactNode;
-    id: number;
-    title: string;
-    body: string;
-  }
+type Props = {
+  books: Book[];
 }
 type books = {
   id: number;
@@ -28,7 +24,7 @@ export async function getStaticProps() {
   };
 }
 
-export default function Index(props: props) {
+export default function Index(props: Props) {
   console.log(props)
   return (
     <>
@@ -42,7 +38,7 @@ export default function Index(props: props) {
         </thead>
         <tbody>
           
-          {props.books.map((book:books)=> {
+          {props.books.map((book:Book)=> {
             return (
               <tr key={book.id}>
                 <td>{book.title}</td>
@@ -53,6 +49,7 @@ export default function Index(props: props) {
           })}
         </tbody>
       </table>
+        <Link href={'books/new-book'}>新規登録する</Link>
     </>
   )
 }

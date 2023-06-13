@@ -1,13 +1,10 @@
 import Link from "next/link";
+import { Book } from "../types";
 
-type props = {
-  book: {
-    id: number;
-    title: string;
-    body: string;
-  }
+type Props = {
+  book: Book[];
 }
-export const getStaticProps = async (context: { params: { id: any; }; }) => {
+export const getStaticProps = async (context: { params: { id: string; }; }) => {
   const id = context.params.id;
   const res = await fetch(`http://back:3000/api/v1/books/${id}`)
   const book = await res.json()
@@ -31,7 +28,7 @@ export const getStaticPaths = async () => {
   }
 }
 
-export default function Book(props:props){
+export default function Book(props:Props){
   return (
     <>
       <div className="book-show-container">
