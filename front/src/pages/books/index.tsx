@@ -1,17 +1,13 @@
 import axios from 'axios';
 import Image from 'next/image'
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { Book } from '../types';
+
 
 type Props = {
   books: Book[];
-}
-type books = {
-  id: number;
-  title: string;
-  body: string;
-}
+};
 export async function getStaticProps() {
   const res = await axios.get("http://back:3000/api/v1/books");
   const books = res.data;
@@ -20,12 +16,23 @@ export async function getStaticProps() {
   return {
     props:{
       books,
-    }
+    },
+    revalidate: 60,
   };
 }
 
 export default function Index(props: Props) {
+  const router = useRouter();
   console.log(props)
+  const BookDelete = async (bookId:string) => {
+    alert("削除しますか？")
+    try{
+      await axios.delete(`http://localhost:3000/api/v1/books/${bookId}`)
+      router.reload();
+    }catch{
+      alert("削除できませんでした");
+    }
+    }
   return (
     <>
       <h1>Books</h1>
@@ -44,6 +51,8 @@ export default function Index(props: Props) {
                 <td>{book.title}</td>
                 <td>{book.body}</td>
                 <td><Link href={`books/${book.id}`}>詳細</Link></td>
+                <td><Link href={`books/edit/${book.id}`}>edit</Link></td>
+                <td><button onClick={() => BookDelete(book.id)}>削除</button></td>
               </tr>
             )
           })}

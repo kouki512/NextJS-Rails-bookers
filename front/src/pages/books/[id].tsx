@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { Book } from "../types";
 
 type Props = {
-  book: Book[];
+  book: Book;
 }
 export const getStaticProps = async (context: { params: { id: string; }; }) => {
   const id = context.params.id;
@@ -24,7 +23,7 @@ export const getStaticPaths = async () => {
   }))
   return {
     paths,
-    fallback: false
+    fallback: 'blocking',
   }
 }
 
@@ -40,7 +39,7 @@ export default function Book(props:Props){
           </div>
         </div>
       </div>
-
+    
     </>
   )
 }

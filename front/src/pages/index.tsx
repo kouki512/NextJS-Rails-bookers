@@ -12,13 +12,10 @@ type props = {
 export async function getStaticProps() {
   const res = await axios.get("http://back:3000/api/v1/books");
   const posts = res.data;
-  console.log(res)
-  console.log(posts)
   return {
     props:{
       posts,
     }
-   // revalidate: 60 * 60 * 24, // 24 hours
   };
 }
 
@@ -29,8 +26,7 @@ export default function Home() {
         <h1>ようこそ<b>Bookersへ！</b></h1>
         <p>Bookers では、さまざまな書籍に関するあなたの意見や<br>
         </br>印象を共有し交換することができます</p>
-        <Link href="/books">start</Link>
-    
+        <Link href="books/">start</Link>
     </>
   )
 }

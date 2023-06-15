@@ -31,6 +31,15 @@ class Api::V1::BooksController < ApplicationController
     render json: {status: :created, data:@book}
   end
 
+  def edit
+    @book = Book.find(params[:id])
+  end
+  def update
+    @book = Book.find(params[:id])
+    @book.update(book_params)
+    render json: {status: :created, data:@book}
+  end
+  
   private
    def book_params
       params.require(:book).permit(:title, :body)
