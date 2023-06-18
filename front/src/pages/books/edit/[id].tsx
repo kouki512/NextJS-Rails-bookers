@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { validationSchema } from "../../../utils/validationSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 type Props = {
   book: Book;
 };
@@ -36,6 +38,8 @@ const Edit = (props: Props) => {
       title: props.book.title,
       body: props.book.body,
     },
+    mode: "onChange",
+    resolver: zodResolver(validationSchema),
   });
   const router = useRouter();
   const { id } = props.book;
@@ -60,10 +64,7 @@ const Edit = (props: Props) => {
         <div>
           <label htmlFor="">Title</label>
           <input
-            {...register("title", {
-              maxLength: 20,
-              required: true,
-            })}
+            {...register("title")}
           />
           <div className="errors">
             {errors.title && (
@@ -78,7 +79,7 @@ const Edit = (props: Props) => {
           <textarea
             cols={30}
             rows={10}
-            {...register("body", { maxLength: 60, required: true })}
+            {...register("body")}
           />
           <div className="errors">
             {errors.body && (

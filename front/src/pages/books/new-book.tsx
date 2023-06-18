@@ -2,9 +2,11 @@ import {useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/router";
+import {validationSchema} from "../../utils/validationSchema";
+import {zodResolver} from "@hookform/resolvers/zod"
 const newBook = () => {
   const router = useRouter();
-  const { register, handleSubmit , formState: { errors } } = useForm<BookForm>();
+  const { register, handleSubmit , formState: { errors } } = useForm<BookForm>({mode: "onChange", resolver: zodResolver(validationSchema)});
   const onSubmit: SubmitHandler<BookForm> = async (data) => {
     console.log(data);
     // APIを叩く
@@ -27,10 +29,7 @@ const newBook = () => {
           <div className="">
             <label>Title：</label>
             <input
-              {...register("title", {
-                maxLength: 20,
-                required: true,
-              })}
+              {...register("title")}
             />
             <div className="errors">
               {errors.title && <span style={{color:"red"}}>文字は20文字以内で作成してください！</span>}
@@ -39,7 +38,7 @@ const newBook = () => {
           <div className="">
             <label>本文：</label>
             <textarea
-              {...register("body", { maxLength: 60, required: true })}
+              {...register("body")}
             />
             <div className="errors">
             {errors.body && <span style={{color:"red"}}>文字は60文字以内で作成してください！</span>}
